@@ -9,31 +9,33 @@
     <meta name="author" content="ListofAICourses">
     <link rel="stylesheet" href="styles.css">
     <link rel="canonical" href="https://listofaicourses.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-            </ul>
-        </nav>
-        <h1>List of AI Courses</h1>
+    <header class="navbar">
+        <div class="logo">
+            <h1>List of AI Courses</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+        </ul>
     </header>
-    <main>
-        <section class="banner">
-            <img src="https://via.placeholder.com/1200x200/2c3e50/ffffff?text=Explore+Top+AI+Courses" alt="Banner: Discover AI, ML, and Data Science Courses">
-            <div class="banner-text">
-                <h2>Find the Best AI, ML, and Data Science Courses</h2>
-                <p>Compare top courses from Udemy, Udacity, and universities to start your learning journey today!</p>
-            </div>
-        </section>
-        <section class="search-section">
-            <input type="text" id="search-bar" placeholder="Search courses by name, topic, or instructor...">
-        </section>
-        <section class="courses-table">
-            <h2>AI and Related Courses</h2>
-            <table id="courses-table">
+    <section class="banner">
+        <div class="banner-content">
+            <h2>Discover Top AI, ML, and Data Science Courses</h2>
+            <p>A one-stop platform to explore and enroll in innovative AI courses from Udemy, Udacity, and leading universities.</p>
+        </div>
+    </section>
+    <section class="search-section">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search courses by name, topic, or instructor...">
+            <button id="searchButton"><i class="fas fa-search"></i></button>
+        </div>
+    </section>
+    <section class="products-section">
+        <div class="table-container">
+            <table id="productsTable">
                 <thead>
                     <tr>
                         <th>Course Name</th>
@@ -46,13 +48,35 @@
                         <th>Affiliate Link</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    <tr><td colspan="8">Loading courses...</td></tr>
+                </tbody>
             </table>
-        </section>
-    </main>
+        </div>
+    </section>
     <footer>
-        <p>© 2025 ListofAICourses.com. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>List of AI Courses</h3>
+                <p>Your one-stop destination for all AI, ML, and Data Science courses.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Disclaimer</h3>
+                <p>This site contains affiliate links. We may earn a commission on purchases made through these links.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ListofAICourses.com. All rights reserved.</p>
+        </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,45 +1,80 @@
-document.addEventListener('DOMContentLoaded', () => {
-    let allCourses = [];
+document.addEventListener('DOMContentLoaded', function() {
+    const csvFilePath = 'courses.csv';
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const productsTable = document.getElementById('productsTable');
 
     // Load CSV and populate table
-    fetch('courses.csv')
-        .then(response => response.text())
-        .then(data => {
-            const rows = data.split('\n').slice(1); // Skip header
-            allCourses = rows.map(row => row.split(',').map(col => col.trim()));
-            renderTable(allCourses);
+    fetch(csvFilePath)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
         })
-        .catch(error => console.error('Error loading CSV:', error));
-
-    // Search functionality
-    const searchBar = document.getElementById('search-bar');
-    searchBar.addEventListener('input', () => {
-        const query = searchBar.value.toLowerCase();
-        const filteredCourses = allCourses.filter(row =>
-            row.some(col => col.toLowerCase().includes(query))
-        );
-        renderTable(filteredCourses);
-    });
+        .then(csvData => {
+            const results = Papa.parse(csvData, {
+                header: true,
+                skipEmptyLines: true,
+                dynamicTyping: true
+            });
+            renderTable(results.data);
+        })
+        .catch(error => {
+            console.error('Error loading or parsing CSV data:', error);
+            document.querySelector('#productsTable tbody').innerHTML = 
+                '<tr><td colspan="8">Error loading course data. Please try again later.</td></tr>';
+        });
 
     // Render table with given data
     function renderTable(courses) {
-        const tbody = document.querySelector('#courses-table tbody');
-        tbody.innerHTML = '';
-        courses.forEach(row => {
-            if (row.length >= 8) {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><a href="${row[0].includes('http') ? row[0] : '#'}" target="_blank">${row[0].includes('http') ? row[0].split('/').pop() : row[0]}</a></td>
-                    <td>${row[1]}</td>
-                    <td>${row[2]}</td>
-                    <td>${row[3]}</td>
-                    <td>${row[4]}</td>
-                    <td>${row[5]}</td>
-                    <td>${row[6]}</td>
-                    <td><a href="${row[7].includes('http') ? row[7] : '#'}" target="_blank">Enroll Now</a></td>
-                `;
-                tbody.appendChild(tr);
-            }
+        const tableBody = document.querySelector('#productsTable tbody');
+        tableBody.innerHTML = '';
+        courses.forEach(course => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><a href="${course.CourseName || '#'}" class="brand-link" target="_blank">${course.CourseName ? course.CourseName.split('/').pop() : ''}</a></td>
+                <td>${course.Description || ''}</td>
+                <td>${course.Instructor || ''}</td>
+                <td>${course.Rating || ''}</td>
+                <td>${course.Duration || ''}</td>
+                <td>${course.Topic || ''}</td>
+                <td>${course.Level || ''}</td>
+                <td><a href="${course.AffiliateLink || '#'}" class="buy-btn" target="_-enroll">Enroll Now <i class="fas fa-external-link-alt"></i></a></td>
+            `;
+            tableBody.appendChild(row);
         });
     }
+
+    // Search functionality
+    function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const tableRows = document.querySelectorAll('#productsTable tbody tr');
+        tableRows.forEach(row => {
+            const courseName = row.cells[0]?.textContent?.toLowerCase() || '';
+            const description = row.cells[1]?.textContent?.toLowerCase() || '';
+            const topic = row.cells[5]?.textContent?.toLowerCase() || '';
+            const instructor = row.cells[2]?.textContent?.toLowerCase() || '';
+            const isMatch = 
+                courseName.includes(searchTerm) || 
+                description.includes(searchTerm) || 
+                topic.includes(searchTerm) || 
+                instructor.includes(searchTerm);
+            row.style.display = isMatch || searchTerm === '' ? '' : 'none';
+        });
+    }
+
+    // Add event listeners
+    searchButton.addEventListener('click', performSearch);
+    searchInput.addEventListener('keyup', performSearch);
+    searchInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            performSearch();
+        }
+    });
+    searchInput.addEventListener('search', function() {
+        if (searchInput.value === '') {
+            performSearch();
+        }
+    });
 });
