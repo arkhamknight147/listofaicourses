@@ -3,80 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of AI Courses - Best AI, ML, and Data Science Courses Online</title>
-    <meta name="description" content="Discover the best AI, Machine Learning, and Data Science courses from Udemy, Udacity, and top universities. Compare courses and start learning today!">
-    <meta name="keywords" content="AI courses, Machine Learning courses, Data Science courses, online AI training, Udemy AI courses, Udacity AI courses, AI certification">
-    <meta name="author" content="ListofAICourses">
+    <title>ListOfAICourses.com - Find the Best AI, Machine Learning & Data Science Courses</title>
+    <meta name="description" content="Discover top-rated AI, Machine Learning, and Data Science courses all in one place. Compare courses by instructor, duration, level, and ratings to find the perfect match for your learning goals.">
+    <meta name="keywords" content="AI courses, machine learning courses, data science courses, online AI training, learn machine learning, data science certification, AI certification, ML tutorials, beginner AI courses, advanced machine learning">
     <link rel="stylesheet" href="styles.css">
-    <link rel="canonical" href="https://listofaicourses.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.ico">
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="ListOfAICourses.com - Find the Best AI, Machine Learning & Data Science Courses">
+    <meta property="og:description" content="Discover top-rated AI, Machine Learning, and Data Science courses all in one place.">
+    <meta property="og:url" content="https://listofaicourses.com">
+    <meta property="og:type" content="website">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://listofaicourses.com">
 </head>
 <body>
-    <header class="navbar">
-        <div class="logo">
-            <h1>List of AI Courses</h1>
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-        </ul>
-    </header>
-    <section class="banner">
-        <div class="banner-content">
-            <h2>Discover Top AI, ML, and Data Science Courses</h2>
-            <p>A one-stop platform to explore and enroll in innovative AI courses from Udemy, Udacity, and leading universities.</p>
-        </div>
-    </section>
-    <section class="search-section">
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search courses by name, topic, or instructor...">
-            <button id="searchButton"><i class="fas fa-search"></i></button>
-        </div>
-    </section>
-    <section class="products-section">
-        <div class="table-container">
-            <table id="productsTable">
-                <thead>
-                    <tr>
-                        <th>Course Name</th>
-                        <th>Description</th>
-                        <th>Instructor</th>
-                        <th>Rating</th>
-                        <th>Duration</th>
-                        <th>Topic</th>
-                        <th>Level</th>
-                        <th>Affiliate Link</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td colspan="8">Loading courses...</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>List of AI Courses</h3>
-                <p>Your one-stop destination for all AI, ML, and Data Science courses.</p>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>ListOfAICourses.com</h1>
             </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
+            <nav>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
                 </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Disclaimer</h3>
-                <p>This site contains affiliate links. We may earn a commission on purchases made through these links.</p>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Find Your Perfect AI, Machine Learning & Data Science Course</h2>
+                <p>Compare top-rated courses across platforms to accelerate your tech career</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>© 2025 ListofAICourses.com. All rights reserved.</p>
+    </section>
+
+    <main>
+        <section class="course-finder">
+            <div class="container">
+                <div class="search-container">
+                    <input type="text" id="courseSearch" placeholder="Search courses by name, instructor, topic...">
+                    <button id="searchButton"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="filter-container">
+                    <div class="filter">
+                        <label for="topicFilter">Topic:</label>
+                        <select id="topicFilter">
+                            <option value="">All Topics</option>
+                            <!-- Will be populated by JavaScript -->
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <label for="levelFilter">Level:</label>
+                        <select id="levelFilter">
+                            <option value="">All Levels</option>
+                            <!-- Will be populated by JavaScript -->
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <label for="ratingFilter">Min Rating:</label>
+                        <select id="ratingFilter">
+                            <option value="">Any Rating</option>
+                            <option value="4.5">4.5 & Up</option>
+                            <option value="4">4.0 & Up</option>
+                            <option value="3.5">3.5 & Up</option>
+                        </select>
+                    </div>
+                    <button id="resetFilters">Reset Filters</button>
+                </div>
+                
+                <div class="table-container">
+                    <table id="coursesTable">
+                        <thead>
+                            <tr>
+                                <th>Course Name <span class="sort-icon" data-sort="name">↕</span></th>
+                                <th>Description</th>
+                                <th>Instructor <span class="sort-icon" data-sort="instructor">↕</span></th>
+                                <th>Rating <span class="sort-icon" data-sort="rating">↕</span></th>
+                                <th>Duration <span class="sort-icon" data-sort="duration">↕</span></th>
+                                <th>Topic</th>
+                                <th>Level</th>
+                                <th>Price <span class="sort-icon" data-sort="price">↕</span></th>
+                                <th>Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Course data will be loaded here via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="noResults" class="hidden">
+                    <p>No courses match your search criteria. Please try different keywords or filters.</p>
+                </div>
+                
+                <div class="pagination">
+                    <button id="prevPage" disabled>Previous</button>
+                    <span id="pageIndicator">Page 1 of 1</span>
+                    <button id="nextPage" disabled>Next</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>ListOfAICourses.com</h3>
+                    <p>Your guide to AI education</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="about.html#affiliate-disclosure">Affiliate Disclosure</a></li>
+                    </ul>
+                </div>
+                <div class="footer-info">
+                    <p>&copy; 2025 ListOfAICourses.com. All rights reserved.</p>
+                    <p>Last updated: May 2025</p>
+                </div>
+            </div>
         </div>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
+    <script src="courses.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
