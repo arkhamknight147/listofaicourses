@@ -1,0 +1,2 @@
+# listofaicourses
+AI course Repo
